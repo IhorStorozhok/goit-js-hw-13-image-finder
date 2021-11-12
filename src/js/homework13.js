@@ -30,18 +30,22 @@ function resetMarkup() {
 }
 
 function drowNewMarkup() {
-  ImgFindService.fetchImg().then(data => {
-    if (data.length === 12) {
-      makeGalleryMarkup(data);
-    } else {
-      let markup = cardsMarkup(data);
-      refs.galleryContainer.insertAdjacentHTML(
-        'beforeend',
-        markup + '<h1>БОЛЬШЕ ФОТОГРАФИЙ ПО ДАННОМУ ЗАПРОСУ НЕТ, ПОПРОБУЙТЕ ЧТО-ТО ЕЩЕ</h1>',
-      );
-      ImgFindService.page = 1;
-    }
-  });
+  ImgFindService.fetchImg()
+    .then(data => {
+      if (data.length === 12) {
+        makeGalleryMarkup(data);
+      } else {
+        let markup = cardsMarkup(data);
+        refs.galleryContainer.insertAdjacentHTML(
+          'beforeend',
+          markup + '<h1>БОЛЬШЕ ФОТОГРАФИЙ ПО ДАННОМУ ЗАПРОСУ НЕТ, ПОПРОБУЙТЕ ЧТО-ТО ЕЩЕ</h1>',
+        );
+        ImgFindService.page = 1;
+      }
+    })
+    .catch(function () {
+      alert('you have some erorrs');
+    });
 }
 
 let observer = new IntersectionObserver((entries, observer) => {
